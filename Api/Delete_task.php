@@ -6,6 +6,7 @@ session_start();
 
 if(!isset($_SESSION["userData"]["userId"])) {
     header("Location: https://www.youtube.com");
+    http_response_code(403);
     die();
 }
 

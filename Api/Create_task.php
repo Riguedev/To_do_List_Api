@@ -4,7 +4,8 @@ require "/xampp/htdocs/To_Do_List/Class/Data_base.php";
 
 session_start();
 
-if(!isset($_SESSION["userData"]["user_id"])) {
+if(!isset($_SESSION["userData"]["userId"])) {
+    http_response_code(403);
     header("Location: https://www.youtube.com");
     die();
 }
@@ -21,12 +22,12 @@ if(!isset($data["title"]) || !isset($data["description"]) || !isset($data["state
     die("Ingresa datos validos");
 }
 
-$task = new Task($data["title"], $data["description"], $data["state"], $_SESSION["userData"]["user_id"]);
+$task = new Task($data["title"], $data["description"], $data["state"], $_SESSION["userData"]["userId"]);
 
 $dbConnection = new DataBaseOperation();
-$dbConnection->createTask($task->title, $task->description, $task->state, $task->userId);
+$response = $dbConnection->createTask($task->title, $task->description, $task->state, $task->userId);
 
-$_SESSION["userData"]["tasks"][] = $task;
+$_SESSION["userData"]["tasks"][] = $response;
 
 http_response_code(200);
-echo json_encode($task, true);
+echo json_encode($response);

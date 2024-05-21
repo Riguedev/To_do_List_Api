@@ -99,12 +99,23 @@ class DataBaseOperation{
             $dataBaseQuery->bindParam(":userId", $userId);
             $dataBaseQuery->execute(); 
 
+            $lastInserId = $dbConnection->lastInsertId();
+
+            $response = array(
+                "task_id" => (int)$lastInserId,
+                "title" => $title,
+                "description" => $description,
+                "state" => (int)$state,
+                "user_id" => (int)$userId
+            );
+
             $dbConnection = NULL;
         }
         catch(PDOException $e){
             http_response_code(500);
             die("Ocurrio un error");
         }
+        return $response;
     }
 
     public function updateTask($taskId, $title, $description, $userId) {
