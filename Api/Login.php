@@ -17,7 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             $taskResults = $dbConnection->getUserTasks($userResults[0]["user_id"]);
 
             $_SESSION['userData'] = array();
-            $_SESSION["userData"]["user_id"] = $userResults[0]["user_id"];
+            $_SESSION["userData"]["userId"] = $userResults[0]["user_id"];
             $_SESSION["userData"]["name"] = $userResults[0]["name"];
             $_SESSION["userData"]["email"] = $userResults[0]["email"];
             $_SESSION["userData"]["password"] = $userResults[0]["password"];
