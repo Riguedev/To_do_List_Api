@@ -1,7 +1,7 @@
 <?php
 
 require "/xampp/htdocs/To_Do_List/Class/Users.php";
-require "/xampp/htdocs/To_Do_List/functions/db_functions.php";
+require "/xampp/htdocs/To_Do_List/Class/Data_base.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -20,6 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $dbConnection = new DataBaseOperation();
             $dbConnection->saveNewUser($name, $email, $encriptPass);
+
+            $response = [
+                "message" => "El usuario se registro con exito",
+                "state" => true
+            ];
+
+            http_response_code(200);
+            echo json_encode($response);
             
         } else {
             $validationErrors = $user->validateUser();

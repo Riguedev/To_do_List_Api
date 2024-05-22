@@ -17,8 +17,6 @@ class DataBaseOperation{
             $dataBaseQuery->bindParam(":email", $email);
             $dataBaseQuery->bindParam(":password", $encriptPass);
             $dataBaseQuery->execute();
-
-            echo "El registro se completo";
             $dbConnection = NULL;
 
         } 

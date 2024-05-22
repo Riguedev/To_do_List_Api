@@ -5,7 +5,7 @@ require "/xampp/htdocs/To_Do_List/Class/Data_base.php";
 session_start();
 
 if(!isset($_SESSION["userData"]["userId"])) {
-    header("Location: https://www.youtube.com");
+    header("Location: https://www.example.com");
     http_response_code(403);
     die();
 }
@@ -21,5 +21,10 @@ $dbConnection = new DataBaseOperation();
 $dbConnection->deleteTask($task["task_id"], $_SESSION["userData"]["userId"]);
 $dbConnection = NULL;
 
+$response = [
+    "message" => "La tarea fue eliminda",
+    "state" => true
+];
+
 http_response_code(200);
-echo "La tarea fue Eliminada";
+echo json_encode($response);
