@@ -11,11 +11,11 @@ class DataBaseOperation{
 
     public function __construct()
     {
-        $this->DB_HOST = "localhost";
-        $this->DB_USER = "root";
-        $this->DB_PASSWORD = "";
-        $this->DB_NAME = "to_do_list";
-        $this->DB_PORT = "3306";
+        $this->DB_HOST = $_ENV["DB_HOST"];
+        $this->DB_USER = $_ENV["DB_USER"];
+        $this->DB_PASSWORD = $_ENV["DB_PASSWORD"];
+        $this->DB_NAME = $_ENV["DB_NAME"];
+        $this->DB_PORT = $_ENV["DB_PORT"];
         $this->DSN = "mysql:host=" . $this->DB_HOST . ";port=" .$this->DB_PORT  . ";dbname=" . $this->DB_NAME;
     }
 
