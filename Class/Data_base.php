@@ -8,15 +8,15 @@ class DataBaseOperation{
     public $DB_NAME;
     public $DB_PORT;
     public $DSN;
-
+// "mysql:mysql:host=$server;dbname=to_do_list"
     public function __construct()
     {
-        $DB_HOST = $_ENV["DB_HOST"];
-        $DB_USER = $_ENV["DB_USER"];
-        $DB_PASSWORD = $_ENV["DB_PASSWORD"];
-        $DB_NAME = $_ENV["DB_NAME"];
-        $DB_PORT = $_ENV["DB_PORT"];
-        $DSN = "mysql:host=" . $DB_HOST . "port=" .$DB_PORT . "dbname=" . $DB_NAME;
+        $this->DB_HOST = "localhost";
+        $this->DB_USER = "root";
+        $this->DB_PASSWORD = "";
+        $this->DB_NAME = "to_do_list";
+        $this->DB_PORT = "3306";
+        $this->DSN = "mysql:host=" . $this->DB_HOST . ";port=" .$this->DB_PORT  . ";dbname=" . $this->DB_NAME;
     }
 
     public function saveNewUser($name, $email, $encriptPass) {
@@ -58,7 +58,7 @@ class DataBaseOperation{
 
         } catch (PDOException $e) {
             http_response_code(500);
-            error_log($e->getMessage());
+            echo $e;
             die("Ha Ocurrido un problema");
         }
 
