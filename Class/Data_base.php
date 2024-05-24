@@ -8,7 +8,7 @@ class DataBaseOperation{
     public $DB_NAME;
     public $DB_PORT;
     public $DSN;
-// "mysql:mysql:host=$server;dbname=to_do_list"
+
     public function __construct()
     {
         $this->DB_HOST = "localhost";
@@ -35,7 +35,7 @@ class DataBaseOperation{
             $dbConnection = NULL;
 
         } 
-        catch(PDOException $e) {
+        catch(PDOException) {
             http_response_code(500);
             die("Ocurrio un error");
         }
@@ -56,9 +56,8 @@ class DataBaseOperation{
             $userResults = $dataBaseQuery->fetchAll(PDO::FETCH_ASSOC);
             $dbConnection = NULL;
 
-        } catch (PDOException $e) {
+        } catch (PDOException) {
             http_response_code(500);
-            echo $e;
             die("Ha Ocurrido un problema");
         }
 
@@ -80,9 +79,8 @@ class DataBaseOperation{
 
             $dbConnection = NULL;
 
-        } catch(PDOException $e) {
+        } catch(PDOException) {
             http_response_code(500);
-            error_log($e->getMessage());
             die("Ocurrio un error");
         }
         return $taskResults;
@@ -115,7 +113,7 @@ class DataBaseOperation{
 
             $dbConnection = NULL;
         }
-        catch(PDOException $e){
+        catch(PDOException){
             http_response_code(500);
             die("Ocurrio un error");
         }
