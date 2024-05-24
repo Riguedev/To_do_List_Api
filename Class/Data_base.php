@@ -1,13 +1,28 @@
 <?php
 
 class DataBaseOperation{
+
+    public $DB_USER;
+    public $DB_HOST;
+    public $DB_PASSWORD;
+    public $DB_NAME;
+    public $DB_PORT;
+    public $DSN;
+
+    public function __construct()
+    {
+        $DB_HOST = $_ENV["DB_HOST"];
+        $DB_USER = $_ENV["DB_USER"];
+        $DB_PASSWORD = $_ENV["DB_PASSWORD"];
+        $DB_NAME = $_ENV["DB_NAME"];
+        $DB_PORT = $_ENV["DB_PORT"];
+        $DSN = "mysql:host=" . $DB_HOST . "port=" .$DB_PORT . "dbname=" . $DB_NAME;
+    }
+
     public function saveNewUser($name, $email, $encriptPass) {
-        $server = "to_do_list";
-        $dbUser = "root";
-        $server_pass = "";
 
         try{
-            $dbConnection = new PDO("mysql:mysql:host=$server;dbname=to_do_list", $dbUser, $server_pass);
+            $dbConnection = new PDO($this->DSN, $this->DB_USER, $this->DB_PASSWORD);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $sql_request = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
@@ -27,12 +42,9 @@ class DataBaseOperation{
     }
 
     public function getUserData($email, $password) {
-        $server = "localhost";
-        $dbUser = "root";
-        $server_pass = "";
 
         try{
-            $dbConnection = new PDO("mysql:mysql:host=$server;dbname=to_do_list", $dbUser, $server_pass);
+            $dbConnection = new PDO($this->DSN, $this->DB_USER, $this->DB_PASSWORD);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             $sqlRequest = "SELECT * FROM users WHERE email = :email AND password = :password";
@@ -54,12 +66,9 @@ class DataBaseOperation{
     }
 
     public function getUserTasks($userId) {
-        $server = "localhost";
-        $dbUser = "root";
-        $server_pass = "";
 
         try {
-            $dbConnection = new PDO("mysql:mysql:host=$server;dbname=to_do_list", $dbUser, $server_pass);
+            $dbConnection = new PDO($this->DSN, $this->DB_USER, $this->DB_PASSWORD);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $sqlRequest = "SELECT * FROM tasks WHERE user_id = :user_id";
@@ -80,12 +89,9 @@ class DataBaseOperation{
     }
 
     public function createTask($title, $description, $state, $userId) {
-        $server = "localhost";
-        $dbUser = "root";
-        $server_pass = "";
 
         try{
-            $dbConnection = new PDO("mysql:mysql:host=$server;dbname=to_do_list", $dbUser, $server_pass);
+            $dbConnection = new PDO($this->DSN, $this->DB_USER, $this->DB_PASSWORD);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
             $sqlRequest = "INSERT INTO tasks (title, description, state, user_id) VALUES (:title, :description, :state, :userId)";
@@ -117,12 +123,9 @@ class DataBaseOperation{
     }
 
     public function updateTask($taskId, $title, $description, $userId) {
-        $server = "localhost";
-        $dbUser = "root";
-        $server_pass = "";
 
         try {
-            $dbConnection = new PDO("mysql:mysql:host=$server;dbname=to_do_list", $dbUser, $server_pass);
+            $dbConnection = new PDO($this->DSN, $this->DB_USER, $this->DB_PASSWORD);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             $sqlRequest = "UPDATE tasks SET title = :title, description = :description WHERE task_id = :taskId AND user_id = :userId";
@@ -153,15 +156,12 @@ class DataBaseOperation{
     }
 
     public function changeTaskState($taskId, $taskState, $userId) {
-        $server = "localhost";
-        $dbUser = "root";
-        $server_pass = "";
         $newTaskState = 0;
 
         ($taskState == 0) ? $newTaskState = 1 : $newTaskState = 0;
 
         try {
-            $dbConnection = new PDO("mysql:mysql:host=$server;dbname=to_do_list", $dbUser, $server_pass);
+            $dbConnection = new PDO($this->DSN, $this->DB_USER, $this->DB_PASSWORD);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $sqlRequest = "UPDATE tasks SET state = :state WHERE task_id = :taskId AND user_id = :userId";
@@ -185,12 +185,9 @@ class DataBaseOperation{
     }
 
     public function deleteTask($taskId, $userId) {
-        $server = "localhost";
-        $dbUser = "root";
-        $server_pass = "";
 
         try {
-            $dbConnection = new PDO("mysql:mysql:host=$server;dbname=to_do_list", $dbUser, $server_pass);
+            $dbConnection = new PDO($this->DSN, $this->DB_USER, $this->DB_PASSWORD);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $sqlRequest = "DELETE FROM tasks WHERE task_id = :taskId AND user_id = :userId";
