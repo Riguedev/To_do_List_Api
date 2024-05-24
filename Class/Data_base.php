@@ -2,7 +2,7 @@
 
 class DataBaseOperation{
     public function saveNewUser($name, $email, $encriptPass) {
-        $server = "localhost";
+        $server = "to_do_list";
         $dbUser = "root";
         $server_pass = "";
 
